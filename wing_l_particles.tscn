@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://gr7d37vc24gx"]
+
+[ext_resource type="Material" uid="uid://d3ntemryssgfn" path="res://scenes/level_up/wing_material.tres" id="1_hb42h"]
+[ext_resource type="Texture2D" uid="uid://bqy1gyiy6ebfu" path="res://scenes/level_up/assets/wing_l.png" id="2_vxn8t"]
+
+[node name="WingLParticles" type="GPUParticles2D"]
+position = Vector2(712, 392)
+amount = 1
+process_material = ExtResource("1_hb42h")
+texture = ExtResource("2_vxn8t")
+lifetime = 1.6

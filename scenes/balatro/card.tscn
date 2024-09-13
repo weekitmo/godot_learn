@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3 uid="uid://1bv7d205xmov"]
+
+[ext_resource type="Shader" path="res://scenes/balatro/shaders/dissolve.gdshader" id="1_13n5q"]
+[ext_resource type="Script" path="res://scenes/balatro/scripts/card.gd" id="1_hc1h3"]
+[ext_resource type="Texture2D" uid="uid://bivgoyf6f7rc2" path="res://scenes/balatro/assets/Tiles_A_white.png" id="1_igb5l"]
+[ext_resource type="Shader" path="res://scenes/balatro/shaders/fake_3d.gdshader" id="4_i184d"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gnwj6"]
+seed = -15
+frequency = 0.0021
+fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_508jc"]
+noise = SubResource("FastNoiseLite_gnwj6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g05yh"]
+shader = ExtResource("1_13n5q")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.03
+shader_parameter/burn_color = Color(1, 1, 0, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_508jc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbwf2"]
+resource_local_to_scene = true
+shader = ExtResource("4_i184d")
+shader_parameter/rect_size = Vector2(152, 207)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ctyt0"]
+size = Vector2(130, 175)
+
+[node name="Card" type="Button"]
+material = SubResource("ShaderMaterial_g05yh")
+custom_minimum_size = Vector2(152, 207)
+offset_right = 8.0
+offset_bottom = 8.0
+pivot_offset = Vector2(76, 103.5)
+script = ExtResource("1_hc1h3")
+velocity_multiplier = 1.0
+
+[node name="Shadow" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_igb5l")
+expand_mode = 1
+
+[node name="CardTexture" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_gbwf2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_igb5l")
+expand_mode = 1
+
+[node name="DestroyArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyArea"]
+position = Vector2(75, 104.5)
+shape = SubResource("RectangleShape2D_ctyt0")
+disabled = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

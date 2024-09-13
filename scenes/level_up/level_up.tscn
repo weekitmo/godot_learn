@@ -1,0 +1,281 @@
+[gd_scene load_steps=18 format=3 uid="uid://fcrao22ubyli"]
+
+[ext_resource type="Script" path="res://scenes/level_up/scripts/level_up.gd" id="1_8p4x5"]
+[ext_resource type="Texture2D" uid="uid://bqy1gyiy6ebfu" path="res://scenes/level_up/assets/wing_l.png" id="2_p81hh"]
+[ext_resource type="PackedScene" uid="uid://gr7d37vc24gx" path="res://wing_l_particles.tscn" id="2_te6yc"]
+[ext_resource type="Texture2D" uid="uid://dkln24p451wim" path="res://scenes/level_up/assets/wing.png" id="3_w440c"]
+[ext_resource type="FontFile" uid="uid://cylpm0qnoh3vr" path="res://shared/fonts/signika/Signika-Medium.ttf" id="4_d21oe"]
+[ext_resource type="Texture2D" uid="uid://chom3wkonahqi" path="res://scenes/level_up/assets/shield.png" id="5_uoxtb"]
+[ext_resource type="FontFile" uid="uid://deo8melbvd5n0" path="res://shared/fonts/signika/Signika-Bold.ttf" id="6_dqjff"]
+[ext_resource type="Texture2D" uid="uid://clx72ajk8cu3t" path="res://scenes/level_up/assets/ribbon.png" id="8_84t6r"]
+[ext_resource type="Script" path="res://scenes/level_up/button_container.gd" id="9_jdjbi"]
+
+[sub_resource type="Gradient" id="Gradient_saurh"]
+colors = PackedColorArray(0.160784, 0.298039, 0.607843, 1, 0.101961, 0.219608, 0.494118, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y0ian"]
+gradient = SubResource("Gradient_saurh")
+width = 1920
+height = 1080
+fill_to = Vector2(1, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_cg0q0"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(1, 1, 1, 0.870588, 1, 1, 1, 0.415686, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8f76f"]
+gradient = SubResource("Gradient_cg0q0")
+
+[sub_resource type="Curve" id="Curve_coo4q"]
+_data = [Vector2(0, 0.589), 0.0, 0.44, 0, 0, Vector2(1, 1), 0.735, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gcskn"]
+curve = SubResource("Curve_coo4q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xb76l"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+initial_velocity_min = 80.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, -23, 0)
+damping_min = 24.351
+damping_max = 24.351
+scale_min = 1.3
+scale_max = 1.3
+scale_curve = SubResource("CurveTexture_gcskn")
+color_ramp = SubResource("GradientTexture1D_8f76f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_osxe6"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+spread = 0.0
+initial_velocity_min = 80.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, -23, 0)
+damping_min = 24.351
+damping_max = 24.351
+scale_min = 1.3
+scale_max = 1.3
+scale_curve = SubResource("CurveTexture_gcskn")
+color_ramp = SubResource("GradientTexture1D_8f76f")
+
+[node name="LevelUp" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8p4x5")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_y0ian")
+
+[node name="WingLParticles" parent="." instance=ExtResource("2_te6yc")]
+process_material = SubResource("ParticleProcessMaterial_xb76l")
+
+[node name="WingRParticles" parent="." instance=ExtResource("2_te6yc")]
+position = Vector2(1200, 392)
+process_material = SubResource("ParticleProcessMaterial_osxe6")
+texture = ExtResource("3_w440c")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -448.5
+offset_top = 45.0
+offset_right = 448.5
+offset_bottom = 136.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_d21oe")
+theme_override_font_sizes/font_size = 71
+text = "You have reached a new level!"
+horizontal_alignment = 1
+
+[node name="Anchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -347.0
+offset_top = -408.0
+offset_right = 347.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Rays" type="TextureRect" parent="Anchor"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Shield" type="TextureRect" parent="Anchor"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -248.0
+offset_right = 291.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(291, 248)
+texture = ExtResource("5_uoxtb")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Level" type="Label" parent="Anchor/Shield"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -106.0
+offset_top = 134.0
+offset_right = 106.0
+offset_bottom = 212.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.839216, 0.329412, 1)
+theme_override_fonts/font = ExtResource("4_d21oe")
+theme_override_font_sizes/font_size = 60
+text = "LEVEL"
+horizontal_alignment = 1
+
+[node name="LevelNumber" type="Label" parent="Anchor/Shield"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -89.0
+offset_right = 106.0
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_dqjff")
+theme_override_font_sizes/font_size = 184
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WingR" type="TextureRect" parent="Anchor/Shield"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -179.0
+offset_top = -128.0
+offset_right = 119.0
+offset_bottom = 183.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(127.33, 139)
+texture = ExtResource("3_w440c")
+
+[node name="WingL" type="TextureRect" parent="Anchor/Shield"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -131.0
+offset_right = 174.0
+offset_bottom = 179.0
+grow_vertical = 2
+pivot_offset = Vector2(166.19, 139)
+texture = ExtResource("2_p81hh")
+
+[node name="LevelUp" type="Label" parent="Anchor"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -301.0
+offset_top = -4.0
+offset_right = 302.0
+offset_bottom = 137.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.839216, 0.329412, 1)
+theme_override_fonts/font = ExtResource("6_dqjff")
+theme_override_font_sizes/font_size = 111
+text = "LEVEL UP!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ribbon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -266.5
+offset_top = -273.0
+offset_right = 266.5
+offset_bottom = -161.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(266.5, 56)
+texture = ExtResource("8_84t6r")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Rewards" type="Label" parent="Ribbon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -35.5
+offset_right = 102.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_d21oe")
+theme_override_font_sizes/font_size = 34
+text = "REWARDS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -159.0
+offset_top = -162.0
+offset_right = 159.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+script = ExtResource("9_jdjbi")
