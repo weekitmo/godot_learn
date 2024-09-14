@@ -4,6 +4,7 @@ uniform vec2 rect_size;
 // 让一个矩形可以做出3D翻转缩放的效果
 // 摄像机视场角度
 uniform float fov : hint_range(1, 179) = 90;
+// 是否剔除背面
 uniform bool cull_back = true;
 // 以Y轴进行旋转
 uniform float y_rot : hint_range(-360.0, 360.0) = 0.0;

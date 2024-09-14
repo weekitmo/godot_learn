@@ -9,6 +9,7 @@ extends Control
 @onready var wing_l = $Anchor/Shield/WingL
 @onready var ribbon = $Ribbon
 @onready var rewards = $Ribbon/Rewards
+@onready var shield = $Anchor/Shield
 
 var tween: Tween
 var tween2: Tween
@@ -21,6 +22,8 @@ func _ready() -> void:
 	
 	wing_r.scale = Vector2.ZERO
 	wing_l.scale = Vector2.ZERO
+	
+	shield.scale = Vector2.ZERO
 	
 	title.self_modulate.a = 0.0
 	level.self_modulate.a = 0.0
@@ -44,6 +47,10 @@ func animate() -> void:
 	tween2 = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_interval(0.4)
 	tween.tween_property(title, "self_modulate:a", 1.0, 0.8)
+	print(shield)
+	tween.parallel().tween_property(shield, "scale", Vector2.ONE, 1.4).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(shield.material, "shader_parameter/y_rot", 180.0, 1.2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	
 	# 等级
 	tween.parallel().tween_property(level, "self_modulate:a", 1.0, 1)
 	tween.parallel().tween_property(level_number, "self_modulate:a", 1.0, 1)
